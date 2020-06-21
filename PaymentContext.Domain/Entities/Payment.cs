@@ -10,20 +10,24 @@ namespace Payment.Context.Domain.Entities
         public string Payer { get; set; }
         public string Document { get; set; }
         public string Address { get; set; }
+        public string Email { get; set; }
     }
 
     class BoletoPayment : Payment
     {
-
+        public string BarCode { get; set; }
+        public string BoletoNumber { get; set; }
     }
 
     class CreditCartPayment : Payment
     {
-
+        public string CardHolderName { get; set; }
+        public string CardNumber { get; set; }
+        public string LastTransactionNumber { get; set; }
     }
 
     class PayPalPayment : Payment
     {
-
+        public string TransactionCode { get; set; }
     }
 }
