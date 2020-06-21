@@ -1,0 +1,9 @@
+D:\dev\balta\PaymentContext\PaymentContext.Shared\bin\Debug\net5.0\PaymentContext.Shared.deps.json
+D:\dev\balta\PaymentContext\PaymentContext.Shared\bin\Debug\net5.0\PaymentContext.Shared.dll
+D:\dev\balta\PaymentContext\PaymentContext.Shared\bin\Debug\net5.0\PaymentContext.Shared.pdb
+D:\dev\balta\PaymentContext\PaymentContext.Shared\obj\Debug\net5.0\PaymentContext.Shared.csprojAssemblyReference.cache
+D:\dev\balta\PaymentContext\PaymentContext.Shared\obj\Debug\net5.0\PaymentContext.Shared.AssemblyInfoInputs.cache
+D:\dev\balta\PaymentContext\PaymentContext.Shared\obj\Debug\net5.0\PaymentContext.Shared.AssemblyInfo.cs
+D:\dev\balta\PaymentContext\PaymentContext.Shared\obj\Debug\net5.0\PaymentContext.Shared.csproj.CoreCompileInputs.cache
+D:\dev\balta\PaymentContext\PaymentContext.Shared\obj\Debug\net5.0\PaymentContext.Shared.dll
+D:\dev\balta\PaymentContext\PaymentContext.Shared\obj\Debug\net5.0\PaymentContext.Shared.pdb
