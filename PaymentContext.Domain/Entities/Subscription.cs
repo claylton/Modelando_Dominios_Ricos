@@ -1,6 +1,9 @@
+using System;
+using System.Collections.Generic;
+
 namespace PaymentContext.Domain.Entities
 {
-    class Subscription
+    public class Subscription
     {
         public DateTime CreateDate { get; set; }
         public DateTime LastUpdateDate { get; set; }

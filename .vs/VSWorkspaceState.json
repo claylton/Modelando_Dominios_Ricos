@@ -4,6 +4,6 @@
     "\\PaymentContext.Domain",
     "\\PaymentContext.Domain\\Entities"
   ],
-  "SelectedNode": "\\PaymentContext.Domain\\Entities\\Student.cs",
+  "SelectedNode": "\\PaymentContext.Domain\\Entities\\Payment.cs",
   "PreviewInSolutionExplorer": false
 }

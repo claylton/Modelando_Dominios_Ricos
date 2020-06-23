@@ -1,6 +1,8 @@
-namespace Payment.Context.Domain.Entities
+using System;
+
+namespace PaymentContext.Domain.Entities
 {
-    abstract class Payment
+    public abstract class Payment
     {
         public string Number { get; set; }
         public DateTime PaidDate { get; set; }
@@ -13,20 +15,20 @@ namespace Payment.Context.Domain.Entities
         public string Email { get; set; }
     }
 
-    class BoletoPayment : Payment
+    public class BoletoPayment : Payment
     {
         public string BarCode { get; set; }
         public string BoletoNumber { get; set; }
     }
 
-    class CreditCartPayment : Payment
+    public class CreditCartPayment : Payment
     {
         public string CardHolderName { get; set; }
         public string CardNumber { get; set; }
         public string LastTransactionNumber { get; set; }
     }
 
-    class PayPalPayment : Payment
+    public class PayPalPayment : Payment
     {
         public string TransactionCode { get; set; }
     }

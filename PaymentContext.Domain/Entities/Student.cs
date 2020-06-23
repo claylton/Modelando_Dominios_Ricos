@@ -1,4 +1,6 @@
-namespace Payment.Context.Domain.Entities
+using System.Collections.Generic;
+
+namespace PaymentContext.Domain.Entities
 {
     public class Student
     {
