@@ -8,12 +8,14 @@ namespace PaymentContext.Domain.Entities
     public class Student : Entity
     {
         private IList<Subscription> _subscriptions;
-        public Student(string v, Name name, Document document, Email email)
+        public Student(Name name, Document document, Email email)
         {
             Name = name;
             Document = document;
             Email = email;
             _subscriptions = new List<Subscription>();
+
+            AddNotifications(name, document, email);
         }
 
         public Name Name { get; private set; }

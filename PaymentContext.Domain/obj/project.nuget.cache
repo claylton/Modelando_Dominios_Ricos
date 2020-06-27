@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "31PLSvronrQwAIQhwkDBwtNFwViNEN/HD/VbQirzm1ZGDsFfOl1GmQ/pwiPmpvsbsI+qlZPFcqQJ1R4UL4t/sw==",
+  "dgSpecHash": "XNI3ZayjZ90ZFTW+NEnSrThCbCEvD9CdC9zFCtynmiDmeDEOpNOWReQXLn6WHIlbRhAT1QF89nGBJuzySA3S3Q==",
   "success": true,
   "projectFilePath": "D:\\dev\\balta\\PaymentContext\\PaymentContext.Domain\\PaymentContext.Domain.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\clayl\\.nuget\\packages\\flunt\\1.0.5\\flunt.1.0.5.nupkg.sha512"
+  ],
   "logs": []
 }
