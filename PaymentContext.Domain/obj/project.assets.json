@@ -48,7 +48,7 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v5.0": [
       "PaymentContext.Shared >= 1.0.0",
-      "flunt >= *"
+      "flunt >= 1.0.5"
     ]
   },
   "packageFolders": {
@@ -98,7 +98,7 @@
         "dependencies": {
           "flunt": {
             "target": "Package",
-            "version": "[*, )"
+            "version": "[1.0.5, )"
           }
         },
         "imports": [
