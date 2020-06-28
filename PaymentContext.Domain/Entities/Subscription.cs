@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Flunt.Validations;
+using PaymentContext.Shared.Entities;
 
 namespace PaymentContext.Domain.Entities
 {
-    public class Subscription
+    public class Subscription : Entity
     {
         private IList<Payment> _payments;
         public Subscription(DateTime? expireDate)
@@ -23,7 +25,13 @@ namespace PaymentContext.Domain.Entities
 
         public void AddPayment(Payment payment)
         {
-            _payments.Add(payment);
+            AddNotifications(new Contract()
+                .Requires()
+                .IsGreaterThan(DateTime.Now, payment.PaidDate, "Subscription.Payment", "A data do pagamento tem que ser futura")
+            );
+
+            if (Valid)
+                _payments.Add(payment);
         }
 
         public void Activate()
