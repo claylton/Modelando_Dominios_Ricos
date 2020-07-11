@@ -13,7 +13,9 @@ namespace PaymentContext.Domain.Handlers
 {
     public class SubscriptionHandler :
         Notifiable,
-        IHandler<CreateBoletoSubscriptionCommand>
+        IHandler<CreateBoletoSubscriptionCommand>,
+        IHandler<CreateCreditCardSubscriptionCommand>,
+        IHandler<CreatePayPalSubscriptionCommand>
     {
         private readonly IStudentRepository _repository;
         private readonly IEmailService _emailService;
@@ -25,19 +27,20 @@ namespace PaymentContext.Domain.Handlers
         }
         public ICommandResult Handle(CreateBoletoSubscriptionCommand command)
         {
-            //Fail Fast Validations
+            //Fail, Fast Validations
             command.Validate();
             if (command.Invalid)
             {
                 AddNotifications(command);
                 return new CommandResult(false, "Não foi possível realizar sua assinatura");
             }
+
             // Verificar se Documento já esta cadastrado
             if (_repository.DocumentExists(command.Document))
                 AddNotification("Document", "Este CPF já está em uso");
 
             // Verificar se E-mail já está cadastrado
-            if (_repository.DocumentExists(command.Document))
+            if (_repository.EmailExists(command.Email))
                 AddNotification("Email", "Este E-mail já está em uso");
 
             // Gerar os VOs
@@ -51,6 +54,115 @@ namespace PaymentContext.Domain.Handlers
             var payment = new BoletoPayment(
                 command.BarCode,
                 command.BoletoNumber,
+                command.PaidDate,
+                command.ExpireDate,
+                command.Total,
+                command.TotalPaid,
+                command.Payer,
+                new Document(command.PayerDocument, command.PayerDocumentType),
+                address,
+                email);
+
+            // Relacionamentos
+            subscription.AddPayment(payment);
+            student.AddSubscription(subscription);
+
+            // Agrupar as validações
+            AddNotifications(name, document, email, address, student, subscription, payment);
+
+            // Salvar as informações
+            _repository.CreateSubscription(student);
+
+            // Enviar E-mail de boas vindas
+            _emailService.Send(student.Name.ToString(), student.Email.Address, "Pagamento efetuado", "Agradecemos pelo vosso pagamento amiguinho, Sua assinatura foi efetuada");
+            // Retornar informações
+            return new CommandResult(true, "Assinatura realizada com sucesso");
+        }
+
+        public ICommandResult Handle(CreateCreditCardSubscriptionCommand command)
+        {
+            //Fail, Fast, Validation
+            command.Validate();
+            if (command.Invalid)
+            {
+                AddNotifications(command);
+                return new CommandResult(false, "Não foi possível realizar sua assinatura");
+            }
+
+            //Verificar se o Documento já está cadastrado
+            if (_repository.DocumentExists(command.Document))
+                AddNotification("Document", "Este CPF já está em uso");
+
+            //Verificar se E-mail já está cadastrado
+            if (_repository.EmailExists(command.Email))
+                AddNotification("Email", "Este E-mail já está em uso");
+
+            // Gerar os VOs
+            var name = new Name(command.FirstName, command.LastName);
+            var document = new Document(command.Document, EDocumentType.CPF);
+            var email = new Email(command.Email);
+            var address = new Address(command.Street, command.Number, command.Neightborhood, command.City, command.State, command.Country, command.ZipCode);
+            // Gerar as Entidades
+            var student = new Student(name, document, email);
+            var subscription = new Subscription(DateTime.Now.AddMonths(1));
+            var payment = new CreditCartPayment(
+                command.CardHolderName,
+                command.CardNumber,
+                command.LastTransactionNumber,
+                command.PaidDate,
+                command.ExpireDate,
+                command.Total,
+                command.TotalPaid,
+                command.Payer,
+                new Document(command.PayerDocument, command.PayerDocumentType),
+                address,
+                email);
+
+            //Relacionamentos
+            subscription.AddPayment(payment);
+            student.AddSubscription(subscription);
+
+            //Agrupar as validações
+            AddNotifications(name, document, email, address, student, subscription, payment);
+
+            //Salvar as informações
+            _repository.CreateSubscription(student);
+
+            //Enviar E-mail de boas vindas
+            _emailService.Send(student.Name.ToString(), student.Email.Address, "Pagamento efetuado", "Agradecemos pelo vosso pagamento amiguinho, Sua assinatura foi efetuada");
+
+            //retornar mensagem de sucesso
+            return new CommandResult(true, "Assinatura realizada com sucesso");
+        }
+
+        public ICommandResult Handle(CreatePayPalSubscriptionCommand command)
+        {
+            //Fail, Fast Validations
+            command.Validate();
+            if (command.Invalid)
+            {
+                AddNotifications(command);
+                return new CommandResult(false, "Não foi possível realizar sua assinatura");
+            }
+
+            // Verificar se Documento já esta cadastrado
+            if (_repository.DocumentExists(command.Document))
+                AddNotification("Document", "Este CPF já está em uso");
+
+            // Verificar se E-mail já está cadastrado
+            if (_repository.EmailExists(command.Email))
+                AddNotification("Email", "Este E-mail já está em uso");
+
+            // Gerar os VOs
+            var name = new Name(command.FirstName, command.LastName);
+            var document = new Document(command.Document, EDocumentType.CPF);
+            var email = new Email(command.Email);
+            var address = new Address(command.Street, command.Number, command.Neightborhood, command.City, command.State, command.Country, command.ZipCode);
+            // Gerar as Entidades
+            var student = new Student(name, document, email);
+            var subscription = new Subscription(DateTime.Now.AddMonths(1));
+            var payment = new PayPalPayment(
+                command.TransactionCode,
                 command.PaidDate,
                 command.ExpireDate,
                 command.Total,
