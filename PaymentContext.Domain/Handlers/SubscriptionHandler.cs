@@ -48,6 +48,7 @@ namespace PaymentContext.Domain.Handlers
             var document = new Document(command.Document, EDocumentType.CPF);
             var email = new Email(command.Email);
             var address = new Address(command.Street, command.Number, command.Neightborhood, command.City, command.State, command.Country, command.ZipCode);
+
             // Gerar as Entidades
             var student = new Student(name, document, email);
             var subscription = new Subscription(DateTime.Now.AddMonths(1));
@@ -69,6 +70,10 @@ namespace PaymentContext.Domain.Handlers
 
             // Agrupar as validações
             AddNotifications(name, document, email, address, student, subscription, payment);
+
+            //Checar as Notificações
+            if (Invalid)
+                return new CommandResult(false, "Não foi possível realizar a sua assinatura amiguinho");
 
             // Salvar as informações
             _repository.CreateSubscription(student);
@@ -125,6 +130,10 @@ namespace PaymentContext.Domain.Handlers
             //Agrupar as validações
             AddNotifications(name, document, email, address, student, subscription, payment);
 
+            //Checar as Notificações
+            if (Invalid)
+                return new CommandResult(false, "Não foi possível realizar a sua assinatura amiguinho");
+
             //Salvar as informações
             _repository.CreateSubscription(student);
 
@@ -178,6 +187,10 @@ namespace PaymentContext.Domain.Handlers
 
             // Agrupar as validações
             AddNotifications(name, document, email, address, student, subscription, payment);
+
+            //Checar as Notificações
+            if (Invalid)
+                return new CommandResult(false, "Não foi possível realizar a sua assinatura amiguinho");
 
             // Salvar as informações
             _repository.CreateSubscription(student);
